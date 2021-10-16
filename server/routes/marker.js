@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Marker = require("../models/Marker");
+const User = require("../models/User");
 
 // Get all Markers
 router.get("/marker", async (req, res) => {
