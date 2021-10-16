@@ -5,7 +5,7 @@ import "../../styles/Auth/registerform.css";
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
-    mobile: "",
+    phone: "",
     email: "",
     password: "",
   });
@@ -15,7 +15,11 @@ const RegisterForm = () => {
   const [loadingUser, setLoadingUser] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const onFormSubmit = async (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onFormSubmit = (e) => {
     e.preventDefault();
     if (formData.password !== confirmPassword) {
       setHelptext("Passwords doesn't match");
@@ -24,10 +28,6 @@ const RegisterForm = () => {
       return;
     }
     setLoadingUser(true);
-    await this.registerUser(this.formData);
-
-    this.msg = this.getErrMsg;
-    this.loadingUser = false;
 
     setFormData({
       name: "",
@@ -55,11 +55,8 @@ const RegisterForm = () => {
               value={formData.name}
               type="text"
               placeholder="Enter your name"
-              onChange={(event) =>
-                setFormData({ ...formData, name: event.target.name })
-              }
-              oninvalid="this.setCustomValidity('Please enter a name')"
-              oninput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="name"
               required
             />
             <span className="icon is-small is-left">
@@ -72,15 +69,12 @@ const RegisterForm = () => {
           <div className="control has-icons-left">
             <input
               className="input"
-              value={formData.mobile}
+              value={formData.phone}
               type="tel"
               placeholder="Enter mobile number"
               pattern="[0-9]{10}"
-              onChange={(event) =>
-                setFormData({ ...formData, mobile: event.target.value })
-              }
-              oninvalid="this.setCustomValidity('Please enter a valid mobile number')"
-              oninput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="phone"
               required
             />
             <span className="icon is-small is-left">
@@ -96,11 +90,8 @@ const RegisterForm = () => {
               value={formData.email}
               type="email"
               placeholder="Enter email"
-              onChange={(event) =>
-                setFormData({ ...formData, email: event.target.value })
-              }
-              oninvalid="this.setCustomValidity('Please enter a valid email')"
-              oninput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="email"
               required
             />
             <span className="icon is-small is-left">
@@ -116,11 +107,8 @@ const RegisterForm = () => {
               value={formData.password}
               type="password"
               placeholder="Enter password"
-              onChange={(event) =>
-                setFormData({ ...formData, password: event.target.value })
-              }
-              oninvalid="this.setCustomValidity('Please enter a password')"
-              oninput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="name"
               required
             />
             <span className="icon is-small is-left">
@@ -137,8 +125,6 @@ const RegisterForm = () => {
               type="password"
               placeholder="Enter password"
               onChange={(event) => setConfirmPassword(event.target.value)}
-              oninvalid="this.setCustomValidity('Please confirm password')"
-              oninput="this.setCustomValidity('')"
               required
             />
             <span className="icon is-small is-left">
