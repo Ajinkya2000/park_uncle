@@ -17,7 +17,7 @@ import "../../styles/Auth/registerform.css";
 // Actions Import
 import { userSignup } from "../../store/actions";
 
-const RegisterForm = ({ userSignup }) => {
+const RegisterForm = ({ userSignup, auth }) => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     name: "",
@@ -115,12 +115,9 @@ const RegisterForm = ({ userSignup }) => {
           <p className="control">
             <button
               type="submit"
-              className="button is-large is-fullwidth register-button"
-              // className={
-              //   loadingUser
-              //     ? "is-loading button is-large is-fullwidth register-button"
-              //     : "button is-large is-fullwidth register-button"
-              // }
+              className={`button is-large is-fullwidth register-button ${
+                auth.loading ? "is-loading" : ""
+              }`}
             >
               <p className="is-size-5">Create an account</p>
             </button>
@@ -131,4 +128,10 @@ const RegisterForm = ({ userSignup }) => {
   );
 };
 
-export default connect(null, { userSignup })(RegisterForm);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+
+export default connect(mapStateToProps, { userSignup })(RegisterForm);

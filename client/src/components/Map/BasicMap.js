@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "./Map.module.css";
+import useGeoLocation from "../../hooks/useGeoLocation";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -10,6 +11,7 @@ const BasicMap = () => {
   const [lng, setLng] = useState(78.0081);
   const [lat, setLat] = useState(27.1767);
   const [zoom, setZoom] = useState(9);
+  const location = useGeoLocation();
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -19,7 +21,17 @@ const BasicMap = () => {
       center: [lng, lat],
       zoom: zoom,
     });
-  });
+  });  
+
+  useEffect(() => {
+    // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
+
+    if(location.loaded && !location.error) {
+      setLng(location.coordinates.lng);
+      setLat(location.coordinates.lat);
+    }
+
+  }, [location]);
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
@@ -29,7 +41,6 @@ const BasicMap = () => {
       setZoom(map.current.getZoom().toFixed(2));
     });
   });
-
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
