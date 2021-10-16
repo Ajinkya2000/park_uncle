@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Styles Import
@@ -9,9 +9,9 @@ import styles from "./Navbar.module.css";
 import logo from "../../images/logo.png";
 
 // Action Import
-import { logoutUser } from "../../store/actions";
+import { logoutUser, setShowMySpot } from "../../store/actions";
 
-const Navbar = ({ logoutUser }) => {
+const Navbar = ({ logoutUser, setShowMySpot }) => {
   const history = useHistory();
 
   const onHamburgerClick = () => {
@@ -21,6 +21,10 @@ const Navbar = ({ logoutUser }) => {
     navHamburger.classList.toggle("is-active");
     navMenu.classList.toggle("is-active");
   };
+
+  const handleSpotClick = (spotState) => {
+    setShowMySpot(spotState);
+  }
 
   const handleLogout = () => {
     logoutUser(() => {
@@ -57,12 +61,16 @@ const Navbar = ({ logoutUser }) => {
 
           <div id="navLinks" className="navbar-menu">
             <div id="navLinksEnd" className="navbar-end">
-              <Link className="navbar-item" to="/">
-                Home
-              </Link>
-              <Link className="navbar-item" to="/">
-                Add Spot
-              </Link>
+              <div className="navbar-item">
+                <button className="button" onClick={() => handleSpotClick(false)}>
+                  Book a spot
+                </button>
+              </div>
+              <div className="navbar-item">
+                <button className="button" onClick={() => handleSpotClick(true)}>
+                  My Spots
+                </button>
+              </div>
               <div className="navbar-item">
                 <button className="button has-text-white-bis has-background-danger-dark" onClick={handleLogout}>
                   Log out
@@ -76,4 +84,4 @@ const Navbar = ({ logoutUser }) => {
   );
 };
 
-export default connect(null, { logoutUser })(Navbar);
+export default connect(null, { logoutUser, setShowMySpot })(Navbar);

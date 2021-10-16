@@ -10,6 +10,7 @@ import {
   SET_LOADING,
   SET_USER_MARKER,
   GET_MARKER_DETAILS,
+  SET_SHOW_MY_SPOT,
 } from "./types";
 
 // Signup User
@@ -110,4 +111,9 @@ export const getMarkers = () => async (dispatch) => {
 // Get Marker Details
 export const getMarkerDetails = (markerData) => (dispatch) => {
   dispatch({ type: GET_MARKER_DETAILS, payload: markerData });
+};
+
+// Set showMySpot
+export const setShowMySpot = (showSpot) => (dispatch) => {
+  dispatch({ type: SET_SHOW_MY_SPOT, payload: showSpot });
 };
