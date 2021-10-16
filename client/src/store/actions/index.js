@@ -10,6 +10,7 @@ import {
   SET_LOADING,
   SET_USER_MARKER,
   GET_MARKER_DETAILS,
+  BOOK_SLOT,
 } from "./types";
 
 // Signup User
@@ -111,3 +112,8 @@ export const getMarkers = () => async (dispatch) => {
 export const getMarkerDetails = (markerData) => (dispatch) => {
   dispatch({ type: GET_MARKER_DETAILS, payload: markerData });
 };
+
+// Book Slot
+export const bookSlot = (data) => (dispatch) => {
+  console.log(data);
+}

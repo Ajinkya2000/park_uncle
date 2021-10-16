@@ -25,4 +25,21 @@ router.post("/marker", async (req, res) => {
   }
 });
 
+// Update Marker Status
+router.patch("/book", async (req, res) => {
+  try {
+    const {markerId, booked, clientId} = req.body;
+    const newMarkerData = await Marker.findOneAndUpdate(
+      
+      { _id: markerId },
+      { booked, clientId },
+      { new: true }
+    );
+
+    res.status(200).json({ markerData: newMarkerData });
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
+});
+
 module.exports = router;

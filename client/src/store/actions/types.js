@@ -8,6 +8,8 @@ export const SET_USER_MARKER = "SET_USER_MARKER";
 export const GET_MARKERS = "GET_MARKERS";
 export const GET_MARKER_DETAILS = "GET_MARKER_DETAILS";
 
+export const BOOK_SLOT = "BOOK_SLOT";
+
 export const SET_ERROR = "SET_ERROR";
 
 export const SET_LOADING = "SET_LOADING";

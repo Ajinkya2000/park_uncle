@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 
 import Drawer from "rsuite/Drawer";
 
-const DrawerWrapper = ({ auth, markerDetails, ...props }) => {
+// Action Import
+import { bookSlot } from "../../store/actions";
+
+const DrawerWrapper = ({ auth, markerDetails, bookSlot, ...props }) => {
+  const handleBooking = () => {
+    bookSlot();
+  };
+  
   return (
     <Fragment>
       {markerDetails && (
@@ -37,13 +44,10 @@ const DrawerWrapper = ({ auth, markerDetails, ...props }) => {
             </p>
             <p className="subtitle is-6">Price: {markerDetails.rate}&#8377;</p>
             {auth.user._id === markerDetails.userId ? (
-              <button
-                className={"button is-danger"}
-              >
-                Remove Spot
-              </button>
+              <button className={"button is-danger"}>Remove Spot</button>
             ) : (
               <button
+                onClick={handleBooking}
                 className={"button is-primary"}
                 disabled={markerDetails.booked}
               >
@@ -64,4 +68,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(DrawerWrapper);
+export default connect(mapStateToProps, { bookSlot })(DrawerWrapper);
