@@ -11,6 +11,8 @@ import {
   SET_USER_MARKER,
   GET_MARKER_DETAILS,
   SET_SHOW_MY_SPOT,
+  SHOW_MODAL,
+  HIDE_MODAL,
 } from "./types";
 
 // Signup User
@@ -116,4 +118,33 @@ export const getMarkerDetails = (markerData) => (dispatch) => {
 // Set showMySpot
 export const setShowMySpot = (showSpot) => (dispatch) => {
   dispatch({ type: SET_SHOW_MY_SPOT, payload: showSpot });
+};
+
+// Book Slot
+export const bookSlot = (markerData, modalOpen) => async (dispatch) => {
+  try {
+    await unclePark.patch("/book", markerData);
+    const { data } = await unclePark.get("/marker");
+    dispatch({
+      type: GET_MARKERS,
+      payload: data,
+    });
+
+    modalOpen();
+  } catch (err) {
+    dispatch({
+      type: SET_ERROR,
+      payload: err.response.data,
+    });
+  }
+};
+
+// show Modal
+export const showModal = () => (dispatch) => {
+  dispatch({ type: SHOW_MODAL });
+};
+
+// hide Modal
+export const hideModal = () => (dispatch) => {
+  dispatch({ type: HIDE_MODAL });
 };

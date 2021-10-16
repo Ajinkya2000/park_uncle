@@ -1,7 +1,8 @@
-import { SET_SHOW_MY_SPOT } from "../actions/types";
+import { HIDE_MODAL, SET_SHOW_MY_SPOT, SHOW_MODAL } from "../actions/types";
 
 const initialState = {
   showMySpots: false,
+  showModal: false,
 };
 
 const utilsReducer = (state = initialState, action) => {
@@ -11,6 +12,17 @@ const utilsReducer = (state = initialState, action) => {
         ...state,
         showMySpots: action.payload,
       };
+    case SHOW_MODAL:
+      return {
+        ...state,
+        showModal: true,
+      };
+    case HIDE_MODAL:
+      return {
+        ...state,
+        showModal: false,
+      };
+
     default:
       return state;
   }
