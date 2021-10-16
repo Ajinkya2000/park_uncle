@@ -36,7 +36,7 @@ router.post("/signup", async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
-    await user.save();
+    const savedUser = await user.save();
 
     const payload = {
       user: {
@@ -50,7 +50,7 @@ router.post("/signup", async (req, res) => {
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
-        res.json({ token });
+        res.json({ user: savedUser, token });
       }
     );
   } catch (err) {

@@ -5,7 +5,6 @@ import "../../styles/Auth/loginform.css";
 const LoginForm = () => {
   const [formData, setFormData] = useState({ mobile: "", password: "" });
   const [loadingUser, setLoadingUser] = useState(false);
-  const [msg, setMsg] = useState("");
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +17,7 @@ const LoginForm = () => {
     <div>
       <form onSubmit={onFormSubmit} className="form mb-6">
         <div className="field">
-          <p className="help is-danger">{{ msg }}</p>
+          {/* <p className="help is-danger">{msg}</p> */}
 
           <label className="label has-text-grey">Mobile number</label>
           <div className="control has-icons-left">
