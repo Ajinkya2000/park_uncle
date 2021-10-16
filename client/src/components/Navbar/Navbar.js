@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Navbar.module.css'
 import logo from '../../images/logo.png';
 
 const Navbar = () => {
@@ -11,16 +12,15 @@ const Navbar = () => {
   }
 
   return (
-    <div>
+    <div className={styles.navWrap}>
       <div className="container">
-      <nav className="navbar has-shadow is-white" role="navigation" aria-label="main navigation">
+      <nav className="navbar is-white" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
             <img src={logo} alt="logo" />
           </a>
 
-          <a
-            role="button"
+          <button
             id="navHamburger"
             className="navbar-burger"
             aria-label="menu"
@@ -31,15 +31,15 @@ const Navbar = () => {
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
-          </a>
+          </button>
         </div>
 
         <div id="navLinks" className="navbar-menu">
           <div id="navLinksEnd" className="navbar-end">
-            <a className="navbar-item"> Home </a>
-            <a className="navbar-item"> Add Spot </a>
+            <a className="navbar-item" href="/"> Home </a>
+            <a className="navbar-item" href="/"> Add Spot </a>
             <div className="navbar-item">
-              <a className="button is-light"> Log out </a>
+              <a className="button is-light" href="/"> Log out </a>
             </div>
           </div>
         </div>
