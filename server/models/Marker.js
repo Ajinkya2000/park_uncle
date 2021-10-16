@@ -50,6 +50,10 @@ const markerSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    clientId: {
+      type: String,
+      default: ''
+    }
   },
   { timestamps: true }
 );
