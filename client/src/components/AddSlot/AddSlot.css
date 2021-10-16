@@ -1,0 +1,18 @@
+.mapboxgl-ctrl-geocoder {
+  min-width: 100%;
+}
+
+.mapboxgl-ctrl-geocoder,
+.mapboxgl-ctrl-geocoder .suggestions {
+  box-shadow: none;
+  border: 1px solid #ddd;
+}
+
+pre {
+  background: white;
+}
+
+#geocoder {
+  position: relative;
+  z-index: 1000;
+}

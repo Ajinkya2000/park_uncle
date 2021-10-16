@@ -1,12 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "./Map.module.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DrawerWrapper from "./Drawer";
 
 import { connect } from "react-redux";
 
 import useGeoLocation from "../../hooks/useGeoLocation";
+
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 // Action import
 import { setUserMarker, getMarkerDetails } from "../../store/actions";
@@ -62,7 +67,7 @@ const BasicMap = ({
     });
 
     const renderedMarkers = mapMarker.markers.filter((marker) => {
-      if(showMySpot) {
+      if (showMySpot) {
         return marker.userId === auth.user._id;
       } else {
         return marker.userId !== auth.user._id;
@@ -97,6 +102,11 @@ const BasicMap = ({
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
+      {showMySpot && (
+        <Link to="/addslot" className={styles.addSlotBtn}>
+          <FontAwesomeIcon icon={faPlus} />
+        </Link>
+      )}
       <DrawerWrapper open={open} setopen={setOpen} />
     </div>
   );
@@ -107,7 +117,7 @@ const mapStateToProps = (state) => {
     auth: state.authReducer,
     mapState: state.mapReducer,
     mapMarker: state.markerReducer,
-    showMySpot: state.utilsReducer.showMySpots
+    showMySpot: state.utilsReducer.showMySpots,
   };
 };
 
