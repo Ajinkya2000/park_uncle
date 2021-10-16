@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "./Map.module.css";
-import Drawer from 'rsuite/Drawer';
-import Button from 'rsuite/Button';
+
+import DrawerWrapper from "./Drawer";
+
 import { connect } from 'react-redux'
 
 import useGeoLocation from "../../hooks/useGeoLocation";
@@ -62,24 +63,7 @@ const BasicMap = ({ mapState }) => {
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
-      <Drawer backdrop={true} size="xs" placement='left' open={open} onClose={() => setOpen(false)}>
-        <Drawer.Header>
-          <Drawer.Title>Parking Details</Drawer.Title>
-          <Drawer.Actions>
-            <Button color="green" appearance="primary" onClick={() => setOpen(false)}>Book</Button>
-          </Drawer.Actions>
-        </Drawer.Header>
-        <Drawer.Body>
-          <p className='title is-2 is-spaced'>{user.name}</p>
-          <p className='subtitle is-4'>{user.number}</p>
-          <p className='subtitle is-6'>{user.address}</p>
-          <p className='subtitle is-6'>{user.description}</p>
-          <p className='subtitle is-6'>Cars: {user.cars}</p>
-          <p className='subtitle is-6'>Bikes: {user.bikes}</p>
-          <p className='subtitle is-6'>Price: {user.rate}&#8377;</p>
-          <Button color="green" appearance="primary" onClick={() => setOpen(false)}>Book</Button>
-        </Drawer.Body>
-      </Drawer>
+      <DrawerWrapper user={user} open={open} setopen={setOpen} />
     </div>
   );
 };
