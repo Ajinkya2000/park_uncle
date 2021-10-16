@@ -8,6 +8,7 @@ import {
   GET_USER,
   LOGOUT_USER,
   SET_LOADING,
+  SET_USER_MARKER,
 } from "./types";
 
 // Signup User
@@ -16,7 +17,7 @@ export const userSignup = (userData, redirect) => async (dispatch) => {
     dispatch({
       type: SET_LOADING,
     });
-    
+
     const { data } = await unclePark.post("/signup", userData);
     dispatch({
       type: USER_SIGNUP,
@@ -79,6 +80,14 @@ export const logoutUser = (redirect) => (dispatch) => {
   });
 
   redirect();
+};
+
+// Set User Marker
+export const setUserMarker = (newLongitude, newLatitude) => (dispatch) => {
+  dispatch({
+    type: SET_USER_MARKER,
+    payload: { newLongitude, newLatitude },
+  });
 };
 
 // Get Markers

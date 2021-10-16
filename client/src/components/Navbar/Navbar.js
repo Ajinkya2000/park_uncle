@@ -60,7 +60,7 @@ const Navbar = ({ logoutUser }) => {
               <Link className="navbar-item" to="/">
                 Home
               </Link>
-              <Link className="navbar-item" href="/">
+              <Link className="navbar-item" to="/">
                 Add Spot
               </Link>
               <div className="navbar-item">
