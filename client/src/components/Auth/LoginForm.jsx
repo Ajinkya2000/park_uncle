@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,9 +10,9 @@ import { faPhoneAlt, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/Auth/loginform.css";
 
 // Action Import
-import {userSignin} from '../../store/actions'
+import { userSignin } from "../../store/actions";
 
-const LoginForm = ({userSignin}) => {
+const LoginForm = ({ userSignin, auth }) => {
   const history = useHistory();
   const [formData, setFormData] = useState({ phone: "", password: "" });
 
@@ -23,8 +23,8 @@ const LoginForm = ({userSignin}) => {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     userSignin(formData, () => {
-      history.push('/');
-    })
+      history.push("/");
+    });
   };
 
   return (
@@ -71,7 +71,9 @@ const LoginForm = ({userSignin}) => {
           <p className="control">
             <button
               type="submit"
-              className="button is-large is-fullwidth login-button"
+              className={`button is-large is-fullwidth login-button ${
+                auth.loading ? "is-loading" : ""
+              }`}
             >
               <p className="is-size-5">Sign In</p>
             </button>
@@ -82,4 +84,10 @@ const LoginForm = ({userSignin}) => {
   );
 };
 
-export default connect(null, {userSignin})(LoginForm);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+
+export default connect(mapStateToProps, { userSignin })(LoginForm);
