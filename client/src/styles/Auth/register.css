@@ -1,0 +1,52 @@
+.auth-container {
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  box-shadow: 0 0 50px -35px black;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.register-container {
+  width: 100%;
+  height: 100%;
+}
+
+.container-left {
+  padding-top: 2rem;
+  padding-left: 3rem;
+}
+
+.container-right {
+  background-color: #c2e9fb3b;
+}
+
+.container-right .right-wrapper {
+  width: 80%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 770px) {
+  .container-right {
+    margin-top: 1rem;
+  }
+
+  .right-wrapper {
+    padding-top: 2rem;
+  }
+}
+
+@media only screen and (min-width: 770px) {
+  .auth-container {
+    height: 95%;
+  }
+}
