@@ -64,9 +64,14 @@ const BasicMap = ({
       zoom: mapState.zoom,
     });
 
-    mapMarker.markers.map((marker) => {
+    // mapMarker.markers.map((marker) => {
+    //   addMarker(marker);
+    // });
+
+    for (let marker of mapMarker.markers) {
       addMarker(marker);
-    });
+    }
+
 
     addCurrentUserMarker(
       "#000",
@@ -79,7 +84,7 @@ const BasicMap = ({
     };
 
     // eslint-disable-next-line
-  }, [mapState, mapMarker]);
+  }, [mapState, mapMarker.markers]);
 
   useEffect(() => {
     if (location.loaded && !location.error) {
