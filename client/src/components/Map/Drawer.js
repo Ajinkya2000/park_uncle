@@ -13,7 +13,7 @@ const DrawerWrapper = ({ auth, markerDetails, bookSlot, showModal, ...props }) =
       booked: true,
       clientId: auth.user._id,
     }
-    bookSlot(data, () => {
+    bookSlot(data, markerDetails, auth.user, () => {
       props.setopen(false);
       showModal()
     });

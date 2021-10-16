@@ -121,9 +121,10 @@ export const setShowMySpot = (showSpot) => (dispatch) => {
 };
 
 // Book Slot
-export const bookSlot = (markerData, modalOpen) => async (dispatch) => {
+export const bookSlot = (markerData, details, user, modalOpen) => async (dispatch) => {
   try {
     await unclePark.patch("/book", markerData);
+    await unclePark.post("/send-mail", {details, user});
     const { data } = await unclePark.get("/marker");
     dispatch({
       type: GET_MARKERS,
