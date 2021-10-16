@@ -10,7 +10,7 @@ const Homepage = ({ user }) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (user == null) {
+    if (user === null) {
       history.push("/register");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
