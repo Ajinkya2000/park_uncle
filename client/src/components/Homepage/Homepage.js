@@ -13,6 +13,7 @@ const Homepage = ({ user }) => {
     if (user == null) {
       history.push("/register");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
