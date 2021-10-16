@@ -9,8 +9,8 @@ const UncleParkDetails = () => {
           <span className="title-text-ly">Uncle</span>Park.
         </h1>
         <p className="content has-text-grey is-size-6">
-          Connect with your Friends and <br />
-          Create memories
+          Find a perfect place to <br />
+          park your vehicle
         </p>
       </div>
       <section className="image-container custom-center">

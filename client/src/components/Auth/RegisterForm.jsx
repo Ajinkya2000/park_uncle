@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -33,7 +33,7 @@ const RegisterForm = ({ userSignup }) => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     userSignup(formData, () => {
-      history.push('/dashboard');
+      history.push("/");
     });
   };
 

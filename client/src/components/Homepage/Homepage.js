@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+
 import NavBar from "../Navbar/Navbar";
 import BasicMap from "../Map/BasicMap";
-import styles from './Homepage.module.css'
+import styles from "./Homepage.module.css";
 
-const Homepage = () => {
+const Homepage = ({ user }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user == null) {
+      history.push("/register");
+    }
+  }, []);
+
   return (
     <div className={styles.homeWrap}>
       <NavBar />
@@ -12,4 +23,10 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+export default connect(mapStateToProps)(Homepage);
