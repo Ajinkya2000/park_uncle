@@ -15,7 +15,7 @@ const Homepage = ({ auth }) => {
           <BasicMap />
         </div>
       ) : (
-        <Redirect to="/register" />
+        <Redirect to="/login" />
       )}
     </Fragment>
   );
