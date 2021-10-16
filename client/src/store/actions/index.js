@@ -10,11 +10,8 @@ import {
   SET_LOADING,
   SET_USER_MARKER,
   GET_MARKER_DETAILS,
-<<<<<<< HEAD
   BOOK_SLOT,
-=======
   SET_SHOW_MY_SPOT,
->>>>>>> f4f762f1816b24305dc8c77c7c0a20708833c989
 } from "./types";
 
 // Signup User
