@@ -1,30 +1,32 @@
-import React from 'react'
+import React from 'react';
+import logo from '../../images/logo.png';
 
 const Navbar = () => {
-  function onHamburgerClick() {
+  const onHamburgerClick = () => {
     const navHamburger = document.getElementById("navHamburger");
     const navMenu = document.getElementById(navHamburger.dataset.target);
     
     navHamburger.classList.toggle("is-active");
     navMenu.classList.toggle("is-active");
   }
+
   return (
     <div>
-      <div class="container">
-      <nav class="navbar has-shadow is-white" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+      <div className="container">
+      <nav className="navbar has-shadow is-white" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand">
+          <a className="navbar-item" href="/">
+            <img src={logo} />
           </a>
 
           <a
             role="button"
             id="navHamburger"
-            class="navbar-burger"
+            className="navbar-burger"
             aria-label="menu"
             aria-expanded="false"
             data-target="navLinks"
-            onclick="onHamburgerClick()"
+            onClick={onHamburgerClick}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -32,21 +34,12 @@ const Navbar = () => {
           </a>
         </div>
 
-        <div id="navLinks" class="navbar-menu">
-          <div id="navLinksEnd" class="navbar-end">
-            <a class="navbar-item"> Home </a>
-
-            <a class="navbar-item"> About </a>
-            
-            <a class="navbar-item"> Contact </a>
-
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light"> Log in </a>
-              </div>
+        <div id="navLinks" className="navbar-menu">
+          <div id="navLinksEnd" className="navbar-end">
+            <a className="navbar-item"> Home </a>
+            <a className="navbar-item"> Add Spot </a>
+            <div className="navbar-item">
+              <a className="button is-light"> Log out </a>
             </div>
           </div>
         </div>
@@ -56,4 +49,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;
