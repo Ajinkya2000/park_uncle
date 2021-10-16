@@ -14,7 +14,7 @@ const UncleParkDetails = () => {
         </p>
       </div>
       <section className="image-container custom-center">
-        <img src="../../assets/onlineConnection.svg" alt="" />
+        <img src="../../assets/onlineConnection.svg" alt="unclepark" />
       </section>
     </section>
   );

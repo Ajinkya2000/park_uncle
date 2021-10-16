@@ -1,0 +1,18 @@
+// Customizations Here (Optional)
+$primary: #1352AC;
+// #41D1AF
+// #FC4D3A
+
+// Bulma Import
+@import '~bulma';
+
+.custom-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.socially-ly {
+  color: #41d1af;
+}
