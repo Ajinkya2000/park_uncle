@@ -34,6 +34,10 @@ const markerSchema = new mongoose.Schema(
       type: Number,
       default: 0
     },
+    booked: {
+      type: Boolean,
+      default: false,
+    }
   },
   { timestamps: true }
 );
