@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import Drawer from "rsuite/Drawer";
 
-const DrawerWrapper = ({ markerDetails, ...props }) => {
+const DrawerWrapper = ({ auth, markerDetails, ...props }) => {
   return (
     <Fragment>
       {markerDetails && (
@@ -36,7 +36,20 @@ const DrawerWrapper = ({ markerDetails, ...props }) => {
               Bikes: {markerDetails.numberOfBikes}
             </p>
             <p className="subtitle is-6">Price: {markerDetails.rate}&#8377;</p>
-            <button className={"button is-primary"} disabled={markerDetails.booked}>Book</button>
+            {auth.user._id === markerDetails.userId ? (
+              <button
+                className={"button is-danger"}
+              >
+                Remove Spot
+              </button>
+            ) : (
+              <button
+                className={"button is-primary"}
+                disabled={markerDetails.booked}
+              >
+                Book Spot
+              </button>
+            )}
           </Drawer.Body>
         </Drawer>
       )}
@@ -46,6 +59,7 @@ const DrawerWrapper = ({ markerDetails, ...props }) => {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.authReducer,
     markerDetails: state.markerReducer.markerDetails,
   };
 };

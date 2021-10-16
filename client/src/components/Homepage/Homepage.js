@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -11,7 +11,7 @@ import styles from "./Homepage.module.css";
 // Action Imports
 import { getUser, getMarkers } from "../../store/actions";
 
-const Homepage = ({ getUser, getMarkers }) => {
+const Homepage = ({ getUser, getMarkers, auth }) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -32,11 +32,21 @@ const Homepage = ({ getUser, getMarkers }) => {
   }, []);
 
   return (
-    <div className={styles.homeWrap}>
-      <NavBar />
-      <BasicMap />
-    </div>
+    <Fragment>
+      {auth && auth.user && (
+        <div className={styles.homeWrap}>
+          <NavBar />
+          <BasicMap />
+        </div>
+      )}
+    </Fragment>
   );
 };
 
-export default connect(null, { getUser, getMarkers })(Homepage);
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+
+export default connect(mapStateToProps, { getUser, getMarkers })(Homepage);
