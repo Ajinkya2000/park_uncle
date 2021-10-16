@@ -4,7 +4,7 @@ import styles from "./Map.module.css";
 
 import DrawerWrapper from "./Drawer";
 
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 
 import useGeoLocation from "../../hooks/useGeoLocation";
 
@@ -14,7 +14,7 @@ import { setUserMarker } from "../../store/actions";
 // Config
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const BasicMap = ({ mapState, mapMarker, setUserMarker }) => {
+const BasicMap = ({ auth, mapState, mapMarker, setUserMarker }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const location = useGeoLocation();
@@ -30,16 +30,34 @@ const BasicMap = ({ mapState, mapMarker, setUserMarker }) => {
   });
 
   // drawer controls
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
-  const addMarker = (colour, lng, lat) => {
-    new mapboxgl.Marker({
+  const addMarker = (userMarker) => {
+    const color = userMarker.userId === auth.user._id ? "green" : "red"
+    const marker = new mapboxgl.Marker({
+      color,
+      draggable: false,
+    })
+      .setLngLat([userMarker.longitude, userMarker.latitude])
+      .addTo(map.current);
+
+    marker.getElement().addEventListener("click", () => {
+      setOpen(true);
+    });
+  };
+
+  const addCurrentUserMarker = (colour, lng, lat) => {
+    const marker = new mapboxgl.Marker({
       color: colour,
       draggable: false,
     })
       .setLngLat([lng, lat])
       .addTo(map.current);
-  };
+
+    marker.getElement().addEventListener("click", () => {
+      setOpen(true);
+    });
+  }
 
   useEffect(() => {
     console.log("Rerendered");
@@ -50,12 +68,11 @@ const BasicMap = ({ mapState, mapMarker, setUserMarker }) => {
       zoom: mapState.zoom,
     });
 
-    
     mapMarker.markers.map((marker) => {
-      addMarker("red", marker.longitude, marker.latitude);
+      addMarker(marker);
     });
-    
-    addMarker("#000", mapState.currentLongitude, mapState.currentLatitude);
+
+    addCurrentUserMarker("#000", mapState.currentLongitude, mapState.currentLatitude);
     // eslint-disable-next-line
   }, [mapState, mapMarker]);
 
@@ -86,8 +103,9 @@ const BasicMap = ({ mapState, mapMarker, setUserMarker }) => {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.authReducer,
     mapState: state.mapReducer,
-    mapMarker: state.markerReducer
+    mapMarker: state.markerReducer,
   };
 };
 
