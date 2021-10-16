@@ -1,4 +1,5 @@
 import React from "react";
+import onlineConnection from '../../assets/onlineConnection.svg';
 import "../../styles/UncleParkDetails/unclepark.css";
 
 const UncleParkDetails = () => {
@@ -14,7 +15,7 @@ const UncleParkDetails = () => {
         </p>
       </div>
       <section className="image-container custom-center">
-        <img src="../../assets/onlineConnection.svg" alt="unclepark" />
+        <img src={onlineConnection} alt="unclepark" />
       </section>
     </section>
   );
