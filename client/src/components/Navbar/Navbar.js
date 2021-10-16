@@ -64,7 +64,7 @@ const Navbar = ({ logoutUser }) => {
                 Add Spot
               </Link>
               <div className="navbar-item">
-                <button className="button is-light" onClick={handleLogout}>
+                <button className="button has-text-white-bis has-background-primary-dark" onClick={handleLogout}>
                   Log out
                 </button>
               </div>

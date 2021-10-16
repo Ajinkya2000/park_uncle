@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "./Map.module.css";
+import Drawer from 'rsuite/Drawer';
+import Button from 'rsuite/Button';
 import useGeoLocation from "../../hooks/useGeoLocation";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -13,6 +15,20 @@ const BasicMap = () => {
   const [zoom, setZoom] = useState(9);
   const location = useGeoLocation();
 
+  const [user, setUser] = useState({
+    name: "Syam Prajapathi",
+    number: '+91 9985180589',
+    address: 'G.B. Road, Mumbai, Tamiznadu, Sri Lanka',
+    description: 'so much space very large space badiya h bohot badhiya',
+    cars: 2,
+    bikes: 2,
+    rate: 'free'
+  })
+
+  // drawer controls
+  const [open, setOpen] = useState(true);
+
+
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
@@ -21,12 +37,12 @@ const BasicMap = () => {
       center: [lng, lat],
       zoom: zoom,
     });
-  });  
+  });
 
   useEffect(() => {
     // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
 
-    if(location.loaded && !location.error) {
+    if (location.loaded && !location.error) {
       setLng(location.coordinates.lng);
       setLat(location.coordinates.lat);
     }
@@ -44,6 +60,24 @@ const BasicMap = () => {
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
+      <Drawer backdrop={true} size="xs" placement='left' open={open} onClose={() => setOpen(false)}>
+        <Drawer.Header>
+          <Drawer.Title>Parking Details</Drawer.Title>
+          <Drawer.Actions>
+            <Button color="green" appearance="primary" onClick={() => setOpen(false)}>Book</Button>
+          </Drawer.Actions>
+        </Drawer.Header>
+        <Drawer.Body>
+          <p className='title is-2 is-spaced'>{user.name}</p>
+          <p className='subtitle is-4'>{user.number}</p>
+          <p className='subtitle is-6'>{user.address}</p>
+          <p className='subtitle is-6'>{user.description}</p>
+          <p className='subtitle is-6'>Cars: {user.cars}</p>
+          <p className='subtitle is-6'>Bikes: {user.bikes}</p>
+          <p className='subtitle is-6'>Price: {user.rate}&#8377;</p>
+          <Button color="green" appearance="primary" onClick={() => setOpen(false)}>Book</Button>
+        </Drawer.Body>
+      </Drawer>
     </div>
   );
 };
