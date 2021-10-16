@@ -1,32 +1,29 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import NavBar from "../Navbar/Navbar";
 import BasicMap from "../Map/BasicMap";
 import styles from "./Homepage.module.css";
 
-const Homepage = ({ user }) => {
-  const history = useHistory();
-
-  useEffect(() => {
-    if (user === null) {
-      history.push("/register");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const Homepage = ({ auth }) => {
   return (
-    <div className={styles.homeWrap}>
-      <NavBar />
-      <BasicMap />
-    </div>
+    <Fragment>
+      {auth.user ? (
+        <div className={styles.homeWrap}>
+          <NavBar />
+          <BasicMap />
+        </div>
+      ) : (
+        <Redirect to="/register" />
+      )}
+    </Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    auth: state.authReducer,
   };
 };
 
