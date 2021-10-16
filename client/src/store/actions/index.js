@@ -1,6 +1,6 @@
 import unclePark from "../../api/unclePark";
 
-import { USER_SIGNUP, SET_ERROR, USER_SIGNIN } from "./types";
+import { USER_SIGNUP, SET_ERROR, USER_SIGNIN, GET_MARKERS, GET_USER } from "./types";
 
 // Signup User
 export const userSignup = (userData, redirect) => async (dispatch) => {
@@ -37,3 +37,37 @@ export const userSignin = (userData, redirect) => async (dispatch) => {
     });
   }
 };
+
+// Get User
+export const getUser = (token) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+  try {
+    const { data } = await unclePark.get('/get-user', config);
+    dispatch({
+      type: GET_USER,
+      payload: data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Get Markers
+export const getMarkers = () => async (dispatch) => {
+  try {
+    const {data} = await unclePark.get('/marker');
+    dispatch({
+      type: GET_MARKERS,
+      payload: data
+    })
+  } catch (err) {
+    dispatch({
+      type: SET_ERROR,
+      payload: err.response.data
+    })
+  }
+}

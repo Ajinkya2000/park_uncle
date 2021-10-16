@@ -1,4 +1,4 @@
-import { USER_SIGNIN, USER_SIGNUP } from "../actions/types";
+import { GET_USER, USER_SIGNIN, USER_SIGNUP } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -15,6 +15,12 @@ const authReducer = (state = initialState, action) => {
         token: action.payload.token,
         user: action.payload.user,
       };
+
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload
+      }
 
     default:
       return state;
