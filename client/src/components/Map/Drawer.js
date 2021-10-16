@@ -1,12 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
 import Drawer from "rsuite/Drawer";
-import Button from "rsuite/Button";
 
 const DrawerWrapper = ({ markerDetails, ...props }) => {
   return (
-    <>
+    <Fragment>
       {markerDetails && (
         <Drawer
           backdrop={true}
@@ -18,13 +17,13 @@ const DrawerWrapper = ({ markerDetails, ...props }) => {
           <Drawer.Header>
             <Drawer.Title>Parking Details</Drawer.Title>
             <Drawer.Actions>
-              <Button
-                color="green"
-                appearance="primary"
-                onClick={() => props.setopen(false)}
+              <button
+                className={`button is-outlined ${
+                  markerDetails.booked ? "is-danger" : "is-primary"
+                }`}
               >
-                Book
-              </Button>
+                {markerDetails.booked ? "Booked" : "Available"}
+              </button>
             </Drawer.Actions>
           </Drawer.Header>
           <Drawer.Body>
@@ -33,19 +32,15 @@ const DrawerWrapper = ({ markerDetails, ...props }) => {
             <p className="subtitle is-6">{markerDetails.address}</p>
             <p className="subtitle is-6">{markerDetails.description}</p>
             <p className="subtitle is-6">Cars: {markerDetails.numberOfCars}</p>
-            <p className="subtitle is-6">Bikes: {markerDetails.numberOfBikes}</p>
+            <p className="subtitle is-6">
+              Bikes: {markerDetails.numberOfBikes}
+            </p>
             <p className="subtitle is-6">Price: {markerDetails.rate}&#8377;</p>
-            <Button
-              color="green"
-              appearance="primary"
-              onClick={() => props.setopen(false)}
-            >
-              Book
-            </Button>
+            <button className={"button is-primary"} disabled={markerDetails.booked}>Book</button>
           </Drawer.Body>
         </Drawer>
       )}
-    </>
+    </Fragment>
   );
 };
 
