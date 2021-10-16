@@ -1,6 +1,6 @@
 import unclePark from "../../api/unclePark";
 
-import { USER_SIGNUP, SET_ERROR, USER_SIGNIN, GET_MARKERS, GET_USER } from "./types";
+import { USER_SIGNUP, SET_ERROR, USER_SIGNIN, GET_MARKERS, GET_USER, LOGOUT_USER } from "./types";
 
 // Signup User
 export const userSignup = (userData, redirect) => async (dispatch) => {
@@ -54,6 +54,15 @@ export const getUser = (token) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
+}
+
+// Logout User
+export const logoutUser = (redirect) => (dispatch) => {
+  dispatch({
+    type: LOGOUT_USER
+  })
+
+  redirect();
 }
 
 // Get Markers
