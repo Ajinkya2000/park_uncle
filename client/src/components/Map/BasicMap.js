@@ -21,7 +21,17 @@ const BasicMap = () => {
       center: [lng, lat],
       zoom: zoom,
     });
-  });
+  });  
+
+  useEffect(() => {
+    // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
+
+    if(location.loaded && !location.error) {
+      setLng(location.coordinates.lng);
+      setLat(location.coordinates.lat);
+    }
+
+  }, [location]);
 
   useEffect(() => {
     if (!map.current) return; // wait for map to initialize
@@ -34,9 +44,6 @@ const BasicMap = () => {
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
-      {
-        location.loaded ? console.log(JSON.stringify(location)) : console.log("Location not allowed")
-      }
     </div>
   );
 };
