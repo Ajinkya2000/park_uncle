@@ -16,7 +16,7 @@ const Navbar = () => {
       <nav className="navbar has-shadow is-white" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
-            <img src={logo} />
+            <img src={logo} alt="logo" />
           </a>
 
           <a
