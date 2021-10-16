@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 
 import './index.css';
+import 'rsuite/dist/rsuite.min.css';
 
 import reducers from "./store/reducers";
 
