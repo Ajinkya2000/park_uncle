@@ -11,7 +11,6 @@ function App() {
   return (
     <div className="app-container custom-center">
       <Router>
-        <Navbar />
         <Switch>
           <Route exact path='/' component={Login} />
           <Route exact path='/register' component={Register} />
