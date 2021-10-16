@@ -44,16 +44,12 @@ const BasicMap = ({
   };
 
   const addCurrentUserMarker = (colour, lng, lat) => {
-    const marker = new mapboxgl.Marker({
+    new mapboxgl.Marker({
       color: colour,
       draggable: false,
     })
       .setLngLat([lng, lat])
       .addTo(map.current);
-
-    marker.getElement().addEventListener("click", () => {
-      setOpen(true);
-    });
   };
 
   useEffect(() => {
@@ -64,14 +60,9 @@ const BasicMap = ({
       zoom: mapState.zoom,
     });
 
-    // mapMarker.markers.map((marker) => {
-    //   addMarker(marker);
-    // });
-
     for (let marker of mapMarker.markers) {
       addMarker(marker);
     }
-
 
     addCurrentUserMarker(
       "#000",
