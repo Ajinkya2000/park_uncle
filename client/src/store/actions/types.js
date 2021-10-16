@@ -9,6 +9,8 @@ export const GET_MARKERS = "GET_MARKERS";
 export const GET_MARKER_DETAILS = "GET_MARKER_DETAILS";
 
 export const BOOK_SLOT = "BOOK_SLOT";
+export const SHOW_MODAL = "SHOW_MODAL";
+export const HIDE_MODAL = "HIDE_MODAL";
 
 export const SET_ERROR = "SET_ERROR";
 

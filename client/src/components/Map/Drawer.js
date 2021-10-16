@@ -4,13 +4,21 @@ import { connect } from "react-redux";
 import Drawer from "rsuite/Drawer";
 
 // Action Import
-import { bookSlot } from "../../store/actions";
+import { bookSlot, showModal } from "../../store/actions";
 
-const DrawerWrapper = ({ auth, markerDetails, bookSlot, ...props }) => {
+const DrawerWrapper = ({ auth, markerDetails, bookSlot, showModal, ...props }) => {
   const handleBooking = () => {
-    bookSlot();
+    const data = {
+      markerId: markerDetails._id,
+      booked: true,
+      clientId: auth.user._id,
+    }
+    bookSlot(data, () => {
+      props.setopen(false);
+      showModal()
+    });
   };
-  
+
   return (
     <Fragment>
       {markerDetails && (
@@ -68,4 +76,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { bookSlot })(DrawerWrapper);
+export default connect(mapStateToProps, { bookSlot, showModal })(DrawerWrapper);

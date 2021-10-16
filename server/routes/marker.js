@@ -36,9 +36,9 @@ router.patch("/book", async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ markerData: newMarkerData });
+    return res.status(200).json({ markerData: newMarkerData });
   } catch (err) {
-    res.status(500).json({error: err.message});
+    return res.status(500).json({error: err.message});
   }
 });
 

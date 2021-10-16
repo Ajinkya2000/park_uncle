@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import NavBar from "../Navbar/Navbar";
 import BasicMap from "../Map/BasicMap";
+import Modal from "../utils/Modal";
 
 // Style Imports
 import styles from "./Homepage.module.css";
@@ -11,7 +12,7 @@ import styles from "./Homepage.module.css";
 // Action Imports
 import { getUser, getMarkers } from "../../store/actions";
 
-const Homepage = ({ getUser, getMarkers, auth }) => {
+const Homepage = ({ getUser, getMarkers, auth, modalState }) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const Homepage = ({ getUser, getMarkers, auth }) => {
 
   return (
     <Fragment>
+      {modalState && <Modal />}
       {auth && auth.user && (
         <div className={styles.homeWrap}>
           <NavBar />
@@ -46,6 +48,7 @@ const Homepage = ({ getUser, getMarkers, auth }) => {
 const mapStateToProps = (state) => {
   return {
     auth: state.authReducer,
+    modalState: state.utilsReducer.showModal,
   };
 };
 
