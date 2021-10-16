@@ -27,7 +27,9 @@ const Homepage = ({ getUser, getMarkers }) => {
 
   useEffect(() => {
     getMarkers();
-  }, [])
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className={styles.homeWrap}>

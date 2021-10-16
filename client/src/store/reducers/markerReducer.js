@@ -1,7 +1,8 @@
-import { GET_MARKERS } from "../actions/types";
+import { GET_MARKERS, GET_MARKER_DETAILS } from "../actions/types";
 
 const initialState = {
   markers: [],
+  markerDetails: null,
 };
 
 const markerReducer = (state = initialState, action) => {
@@ -9,7 +10,12 @@ const markerReducer = (state = initialState, action) => {
     case GET_MARKERS:
       return {
         ...state,
-        markers: action.payload
+        markers: action.payload,
+      };
+    case GET_MARKER_DETAILS:
+      return {
+        ...state,
+        markerDetails: action.payload,
       };
     default:
       return state;
