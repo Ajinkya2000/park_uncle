@@ -9,11 +9,13 @@ import { connect } from 'react-redux'
 import useGeoLocation from "../../hooks/useGeoLocation";
 
 
+// Action import
+import { setUserMarker } from "../../store/actions";
+
 // Config
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const BasicMap = ({ mapState }) => {
-
+const BasicMap = ({ mapState, setUserMarker }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const location = useGeoLocation();
@@ -33,24 +35,30 @@ const BasicMap = ({ mapState }) => {
 
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [mapState.currentLongitude, mapState.currentLatitude],
       zoom: mapState.zoom,
     });
-  });
 
-  // useEffect(() => {
-  //   // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
+    new mapboxgl.Marker({
+      color: "#000",
+      draggable: false,
+    })
+      .setLngLat([mapState.currentLongitude, mapState.currentLatitude])
+      .addTo(map.current);
 
-  // if (location.loaded && !location.error) {
-  //   setLng(location.coordinates.lng);
-  //   setLat(location.coordinates.lat);
-  // }
+    // eslint-disable-next-line
+  }, [mapState]);
 
-  // }, [location]);
+  useEffect(() => {
+    if (location.loaded && !location.error) {
+      setUserMarker(location.coordinates.lng, location.coordinates.lat);
+    }
+
+    // eslint-disable-next-line
+  }, [location]);
 
   // useEffect(() => {
   //   if (!map.current) return; // wait for map to initialize
@@ -60,6 +68,7 @@ const BasicMap = ({ mapState }) => {
   //     setZoom(map.current.getZoom().toFixed(2));
   //   });
   // });
+
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
@@ -70,8 +79,8 @@ const BasicMap = ({ mapState }) => {
 
 const mapStateToProps = (state) => {
   return {
-    mapState: state.mapReducer
-  }
-}
+    mapState: state.mapReducer,
+  };
+};
 
-export default connect(mapStateToProps)(BasicMap);
+export default connect(mapStateToProps, { setUserMarker })(BasicMap);
