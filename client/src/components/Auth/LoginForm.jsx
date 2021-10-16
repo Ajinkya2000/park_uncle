@@ -23,7 +23,7 @@ const LoginForm = ({userSignin}) => {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     userSignin(formData, () => {
-      history.push('/dashboard');
+      history.push('/');
     })
   };
 

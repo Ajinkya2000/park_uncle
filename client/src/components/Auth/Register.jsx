@@ -20,7 +20,7 @@ const Register = () => {
                 </h1>
                 <p className="content has-text-grey">
                   Already have an account?
-                  <Link to="/" className="login-link">
+                  <Link to="/login" className="login-link">
                     Login
                   </Link>
                 </p>

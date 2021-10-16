@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate(value) {
-      const regex = /(0\/91)?[7-9][0-9]{9}/;
+      const regex = /(0\/91)?[6-9][0-9]{9}/;
       if (!regex.test(value)) {
         throw new Error("Please enter a valid phone number");
       }
