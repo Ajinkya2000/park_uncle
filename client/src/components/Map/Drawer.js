@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 
 import Drawer from "rsuite/Drawer";
@@ -6,16 +6,26 @@ import Drawer from "rsuite/Drawer";
 // Action Import
 import { bookSlot, showModal } from "../../store/actions";
 
-const DrawerWrapper = ({ auth, markerDetails, bookSlot, showModal, ...props }) => {
+const DrawerWrapper = ({
+  auth,
+  markerDetails,
+  bookSlot,
+  showModal,
+  ...props
+}) => {
+  const [loading, setLoading] = useState(false);
+
   const handleBooking = () => {
+    setLoading(true);
     const data = {
       markerId: markerDetails._id,
       booked: true,
       clientId: auth.user._id,
-    }
+    };
     bookSlot(data, markerDetails, auth.user, () => {
       props.setopen(false);
-      showModal()
+      setLoading(false);
+      showModal();
     });
   };
 
@@ -56,7 +66,7 @@ const DrawerWrapper = ({ auth, markerDetails, bookSlot, showModal, ...props }) =
             ) : (
               <button
                 onClick={handleBooking}
-                className={"button is-primary"}
+                className={`button is-primary ${loading ? "is-loading" : ""}`}
                 disabled={markerDetails.booked}
               >
                 Book Spot
