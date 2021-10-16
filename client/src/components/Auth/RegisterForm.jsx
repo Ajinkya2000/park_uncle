@@ -1,8 +1,24 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Icons
+import {
+  faUser,
+  faPhoneAlt,
+  faAt,
+  faLock,
+} from "@fortawesome/free-solid-svg-icons";
+
+// Styles Import
 import "../../styles/Auth/registerform.css";
 
-const RegisterForm = () => {
+// Actions Import
+import { userSignup } from "../../store/actions";
+
+const RegisterForm = ({ userSignup }) => {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -10,45 +26,24 @@ const RegisterForm = () => {
     password: "",
   });
 
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [helptext, setHelptext] = useState("");
-  const [loadingUser, setLoadingUser] = useState(false);
-  const [msg, setMsg] = useState("");
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== confirmPassword) {
-      setHelptext("Passwords doesn't match");
-      setFormData({ ...formData, password: "" });
-      setConfirmPassword("");
-      return;
-    }
-    setLoadingUser(true);
-
-    setFormData({
-      name: "",
-      mobile: "",
-      email: "",
-      password: "",
+    userSignup(formData, () => {
+      history.push('/dashboard');
     });
-
-    setConfirmPassword("");
-    setHelptext("");
   };
 
   return (
     <div>
       <form onSubmit={onFormSubmit} className="form">
         <div className="field">
-          <p className="help is-danger">{msg}</p>
+          {/* <p className="help is-danger">{msg}</p> */}
 
-          <label for="" className="label has-text-grey">
-            Name
-          </label>
+          <label className="label has-text-grey">Name</label>
           <div className="control has-icons-left">
             <input
               className="input"
@@ -60,7 +55,7 @@ const RegisterForm = () => {
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="user" />
+              <FontAwesomeIcon icon={faUser} />
             </span>
           </div>
         </div>
@@ -78,7 +73,7 @@ const RegisterForm = () => {
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="phone-alt" />
+              <FontAwesomeIcon icon={faPhoneAlt} />
             </span>
           </div>
         </div>
@@ -95,7 +90,7 @@ const RegisterForm = () => {
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="at" />
+              <FontAwesomeIcon icon={faAt} />
             </span>
           </div>
         </div>
@@ -108,40 +103,24 @@ const RegisterForm = () => {
               type="password"
               placeholder="Enter password"
               onChange={handleChange}
-              name="name"
+              name="password"
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="lock" />
+              <FontAwesomeIcon icon={faLock} />
             </span>
           </div>
-        </div>
-        <div className="field">
-          <label className="label has-text-grey">Confirm Password</label>
-          <div className="control has-icons-left">
-            <input
-              className="input"
-              value={confirmPassword}
-              type="password"
-              placeholder="Enter password"
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              required
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="key" />
-            </span>
-          </div>
-          <p className="help is-danger">{helptext}</p>
         </div>
         <div className="field mt-5">
           <p className="control">
             <button
               type="submit"
-              className={
-                loadingUser
-                  ? "is-loading button is-large is-fullwidth register-button"
-                  : "button is-large is-fullwidth register-button"
-              }
+              className="button is-large is-fullwidth register-button"
+              // className={
+              //   loadingUser
+              //     ? "is-loading button is-large is-fullwidth register-button"
+              //     : "button is-large is-fullwidth register-button"
+              // }
             >
               <p className="is-size-5">Create an account</p>
             </button>
@@ -152,4 +131,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default connect(null, { userSignup })(RegisterForm);

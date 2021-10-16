@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 
-import Navbar from "./components/Navbar/Navbar";
+// import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
