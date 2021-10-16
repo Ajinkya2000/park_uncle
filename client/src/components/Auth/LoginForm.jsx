@@ -18,7 +18,7 @@ const LoginForm = () => {
     <div>
       <form onSubmit={onFormSubmit} className="form mb-6">
         <div className="field">
-          <p className="help is-danger">{{ msg }}</p>
+          <p className="help is-danger">{msg}</p>
 
           <label className="label has-text-grey">Mobile number</label>
           <div className="control has-icons-left">

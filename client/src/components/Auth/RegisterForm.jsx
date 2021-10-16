@@ -44,7 +44,7 @@ const RegisterForm = () => {
     <div>
       <form onSubmit={onFormSubmit} className="form">
         <div className="field">
-          <p className="help is-danger">{{ msg }}</p>
+          <p className="help is-danger">{msg}</p>
 
           <label for="" className="label has-text-grey">
             Name
@@ -131,7 +131,7 @@ const RegisterForm = () => {
               <FontAwesomeIcon icon="key" />
             </span>
           </div>
-          <p className="help is-danger">{{ helptext }}</p>
+          <p className="help is-danger">{helptext}</p>
         </div>
         <div className="field mt-5">
           <p className="control">
