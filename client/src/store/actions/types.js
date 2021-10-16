@@ -6,6 +6,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 export const SET_USER_MARKER = "SET_USER_MARKER";
 
 export const GET_MARKERS = "GET_MARKERS";
+export const GET_MARKER_DETAILS = "GET_MARKER_DETAILS";
 
 export const SET_ERROR = "SET_ERROR";
 

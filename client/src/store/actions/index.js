@@ -9,6 +9,7 @@ import {
   LOGOUT_USER,
   SET_LOADING,
   SET_USER_MARKER,
+  GET_MARKER_DETAILS,
 } from "./types";
 
 // Signup User
@@ -104,4 +105,9 @@ export const getMarkers = () => async (dispatch) => {
       payload: err.response.data,
     });
   }
+};
+
+// Get Marker Details
+export const getMarkerDetails = (markerData) => (dispatch) => {
+  dispatch({ type: GET_MARKER_DETAILS, payload: markerData });
 };
