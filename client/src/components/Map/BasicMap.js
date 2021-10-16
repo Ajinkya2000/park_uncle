@@ -14,8 +14,6 @@ import { setUserMarker } from "../../store/actions";
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const BasicMap = ({ mapState, setUserMarker }) => {
-  const [helper, setHelper] = useState(true);
-
   const mapContainer = useRef(null);
   const map = useRef(null);
   const location = useGeoLocation();
@@ -53,12 +51,11 @@ const BasicMap = ({ mapState, setUserMarker }) => {
     addMarker("#000", mapState.currentLongitude, mapState.currentLatitude);
 
     // eslint-disable-next-line
-  }, [helper]);
+  }, [mapState]);
 
   useEffect(() => {
     if (location.loaded && !location.error) {
       setUserMarker(location.coordinates.lng, location.coordinates.lat);
-      setHelper(!helper);
     }
 
     // eslint-disable-next-line
