@@ -3,16 +3,18 @@ import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-load
 import styles from "./Map.module.css";
 import Drawer from 'rsuite/Drawer';
 import Button from 'rsuite/Button';
+import { connect } from 'react-redux'
+
 import useGeoLocation from "../../hooks/useGeoLocation";
 
+
+// Config
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const BasicMap = () => {
+const BasicMap = ({ mapState }) => {
+
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(78.0081);
-  const [lat, setLat] = useState(27.1767);
-  const [zoom, setZoom] = useState(9);
   const location = useGeoLocation();
 
   const [user, setUser] = useState({
@@ -34,29 +36,29 @@ const BasicMap = () => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom,
+      center: [mapState.currentLongitude, mapState.currentLatitude],
+      zoom: mapState.zoom,
     });
   });
 
-  useEffect(() => {
-    // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
+  // useEffect(() => {
+  //   // location.loaded ? console.log(JSON.stringify(location)) : console.log("Please allow location!!")
 
-    if (location.loaded && !location.error) {
-      setLng(location.coordinates.lng);
-      setLat(location.coordinates.lat);
-    }
+  // if (location.loaded && !location.error) {
+  //   setLng(location.coordinates.lng);
+  //   setLat(location.coordinates.lat);
+  // }
 
-  }, [location]);
+  // }, [location]);
 
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
-    });
-  });
+  // useEffect(() => {
+  //   if (!map.current) return; // wait for map to initialize
+  //   map.current.on("move", () => {
+  //     setLng(map.current.getCenter().lng.toFixed(4));
+  //     setLat(map.current.getCenter().lat.toFixed(4));
+  //     setZoom(map.current.getZoom().toFixed(2));
+  //   });
+  // });
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
@@ -82,4 +84,10 @@ const BasicMap = () => {
   );
 };
 
-export default BasicMap;
+const mapStateToProps = (state) => {
+  return {
+    mapState: state.mapReducer
+  }
+}
+
+export default connect(mapStateToProps)(BasicMap);
