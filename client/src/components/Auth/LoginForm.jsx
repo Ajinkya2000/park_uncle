@@ -1,16 +1,30 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Icons
+import { faPhoneAlt, faLock } from "@fortawesome/free-solid-svg-icons";
+
+// Styles Import
 import "../../styles/Auth/loginform.css";
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({ mobile: "", password: "" });
-  const [loadingUser, setLoadingUser] = useState(false);
+// Action Import
+import {userSignin} from '../../store/actions'
+
+const LoginForm = ({userSignin}) => {
+  const history = useHistory();
+  const [formData, setFormData] = useState({ phone: "", password: "" });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    setLoadingUser(true);
-    await setLoadingUser(formData);
-    setLoadingUser(false);
+    userSignin(formData, () => {
+      history.push('/dashboard');
+    })
   };
 
   return (
@@ -23,19 +37,16 @@ const LoginForm = () => {
           <div className="control has-icons-left">
             <input
               className="input"
-              value={formData.mobile}
+              value={formData.phone}
               type="tel"
               placeholder="Enter mobile number"
               pattern="[0-9]{10}"
-              onChange={(event) =>
-                setFormData({ ...formData, mobile: event.target.value })
-              }
-              onInvalid="this.setCustomValidity('Please enter a valid mobile number')"
-              onInput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="phone"
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="phone-alt" />
+              <FontAwesomeIcon icon={faPhoneAlt} />
             </span>
           </div>
         </div>
@@ -47,15 +58,12 @@ const LoginForm = () => {
               value={formData.password}
               type="password"
               placeholder="Enter password"
-              onChange={(event) =>
-                setFormData({ ...formData, password: event.target.value })
-              }
-              onInvalid="this.setCustomValidity('Please enter a password')"
-              onInput="this.setCustomValidity('')"
+              onChange={handleChange}
+              name="password"
               required
             />
             <span className="icon is-small is-left">
-              <FontAwesomeIcon icon="lock" />
+              <FontAwesomeIcon icon={faLock} />
             </span>
           </div>
         </div>
@@ -63,8 +71,7 @@ const LoginForm = () => {
           <p className="control">
             <button
               type="submit"
-              className={loadingUser ? "is-loading" : ""}
-              class="button is-large is-fullwidth login-button"
+              className="button is-large is-fullwidth login-button"
             >
               <p className="is-size-5">Sign In</p>
             </button>
@@ -75,4 +82,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default connect(null, {userSignin})(LoginForm);

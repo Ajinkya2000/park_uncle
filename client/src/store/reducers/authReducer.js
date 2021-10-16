@@ -1,4 +1,4 @@
-import { USER_SIGNUP } from "../actions/types";
+import { USER_SIGNIN, USER_SIGNUP } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -8,6 +8,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case USER_SIGNUP:
+    case USER_SIGNIN:
       localStorage.setItem("token", action.payload.token);
       return {
         ...state,

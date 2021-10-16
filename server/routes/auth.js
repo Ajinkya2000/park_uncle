@@ -87,7 +87,7 @@ router.post("/signin", async (req, res) => {
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.status(200).json({ token });
+          res.status(200).json({ user, token });
         }
       );
     } catch (err) {
