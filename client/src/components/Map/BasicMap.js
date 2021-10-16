@@ -18,6 +18,7 @@ const BasicMap = ({
   auth,
   mapState,
   mapMarker,
+  showMySpot,
   setUserMarker,
   getMarkerDetails,
 }) => {
@@ -60,7 +61,15 @@ const BasicMap = ({
       zoom: mapState.zoom,
     });
 
-    for (let marker of mapMarker.markers) {
+    const renderedMarkers = mapMarker.markers.filter((marker) => {
+      if(showMySpot) {
+        return marker.userId === auth.user._id;
+      } else {
+        return marker.userId !== auth.user._id;
+      }
+    });
+
+    for (let marker of renderedMarkers) {
       addMarker(marker);
     }
 
@@ -75,7 +84,7 @@ const BasicMap = ({
     };
 
     // eslint-disable-next-line
-  }, [mapState, mapMarker.markers]);
+  }, [mapState, mapMarker.markers, showMySpot]);
 
   useEffect(() => {
     if (location.loaded && !location.error) {
@@ -98,6 +107,7 @@ const mapStateToProps = (state) => {
     auth: state.authReducer,
     mapState: state.mapReducer,
     mapMarker: state.markerReducer,
+    showMySpot: state.utilsReducer.showMySpots
   };
 };
 

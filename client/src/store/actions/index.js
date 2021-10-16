@@ -10,7 +10,11 @@ import {
   SET_LOADING,
   SET_USER_MARKER,
   GET_MARKER_DETAILS,
+<<<<<<< HEAD
   BOOK_SLOT,
+=======
+  SET_SHOW_MY_SPOT,
+>>>>>>> f4f762f1816b24305dc8c77c7c0a20708833c989
 } from "./types";
 
 // Signup User
@@ -117,3 +121,7 @@ export const getMarkerDetails = (markerData) => (dispatch) => {
 export const bookSlot = (data) => (dispatch) => {
   console.log(data);
 }
+// Set showMySpot
+export const setShowMySpot = (showSpot) => (dispatch) => {
+  dispatch({ type: SET_SHOW_MY_SPOT, payload: showSpot });
+};
