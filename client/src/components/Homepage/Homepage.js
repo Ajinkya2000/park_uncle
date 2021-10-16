@@ -11,7 +11,7 @@ import styles from "./Homepage.module.css";
 // Action Imports
 import { getUser } from "../../store/actions";
 
-const Homepage = ({ auth, getUser }) => {
+const Homepage = ({ getUser }) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -33,10 +33,4 @@ const Homepage = ({ auth, getUser }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.authReducer,
-  };
-};
-
-export default connect(mapStateToProps, { getUser })(Homepage);
+export default connect(null, { getUser })(Homepage);
