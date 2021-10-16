@@ -1,8 +1,6 @@
 import { SET_USER_MARKER } from "../../store/actions/types";
 
 const initialState = {
-  // currentLatitude: 27.1767,
-  // currentLongitude: 78.0081,
   currentLatitude: 0,
   currentLongitude: 0,
   zoom: 9,

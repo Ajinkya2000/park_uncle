@@ -9,9 +9,9 @@ import BasicMap from "../Map/BasicMap";
 import styles from "./Homepage.module.css";
 
 // Action Imports
-import { getUser } from "../../store/actions";
+import { getUser, getMarkers } from "../../store/actions";
 
-const Homepage = ({ getUser }) => {
+const Homepage = ({ getUser, getMarkers }) => {
   const history = useHistory();
 
   useEffect(() => {
@@ -25,6 +25,10 @@ const Homepage = ({ getUser }) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    getMarkers();
+  }, [])
+
   return (
     <div className={styles.homeWrap}>
       <NavBar />
@@ -33,4 +37,4 @@ const Homepage = ({ getUser }) => {
   );
 };
 
-export default connect(null, { getUser })(Homepage);
+export default connect(null, { getUser, getMarkers })(Homepage);

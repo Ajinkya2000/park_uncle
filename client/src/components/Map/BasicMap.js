@@ -13,7 +13,7 @@ import { setUserMarker } from "../../store/actions";
 // Config
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const BasicMap = ({ mapState, setUserMarker }) => {
+const BasicMap = ({ mapState, mapMarker, setUserMarker }) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const location = useGeoLocation();
@@ -28,40 +28,6 @@ const BasicMap = ({ mapState, setUserMarker }) => {
     rate: "free",
   });
 
-  // Multiple Markers testing fake state
-  const [testUsers, setTestUsers] = useState([
-    {
-      colour: "red", 
-      lng: "77.0103",
-      lat: "20.0163"
-    },
-    {
-      colour: "blue", 
-      lng: "77.0112",
-      lat: "20.0063"
-    },
-    {
-      colour: "green", 
-      lng: "77.0502",
-      lat: "20.0263"
-    },
-    {
-      colour: "pink", 
-      lng: "77.010",
-      lat: "20.0363"
-    },
-    {
-      colour: "yellow", 
-      lng: "77.0210",
-      lat: "20.0193"
-    },
-    {
-      colour: "grey", 
-      lng: "77.0536",
-      lat: "20.0652"
-    },
-  ]);
-
   // drawer controls
   const [open, setOpen] = useState(true);
 
@@ -75,6 +41,7 @@ const BasicMap = ({ mapState, setUserMarker }) => {
   };
 
   useEffect(() => {
+    console.log("Rerendered");
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -82,14 +49,14 @@ const BasicMap = ({ mapState, setUserMarker }) => {
       zoom: mapState.zoom,
     });
 
-    addMarker("#000", mapState.currentLongitude, mapState.currentLatitude);
-
-    testUsers.map((marker) => {
-      addMarker(marker.colour, marker.lng, marker.lat);
+    
+    mapMarker.markers.map((marker) => {
+      addMarker("red", marker.longitude, marker.latitude);
     });
-
+    
+    addMarker("#000", mapState.currentLongitude, mapState.currentLatitude);
     // eslint-disable-next-line
-  }, [mapState]);
+  }, [mapState, mapMarker]);
 
   useEffect(() => {
     if (location.loaded && !location.error) {
@@ -154,6 +121,7 @@ const BasicMap = ({ mapState, setUserMarker }) => {
 const mapStateToProps = (state) => {
   return {
     mapState: state.mapReducer,
+    mapMarker: state.markerReducer
   };
 };
 
