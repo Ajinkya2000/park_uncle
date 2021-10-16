@@ -9,7 +9,7 @@ const UncleParkDetails = () => {
         <section class="column container-left">
             <div class="header">
                 <h1 class="title is-size-2-desktop is-size-3-touch">
-                    <span class="title-text-ly">Social</span>ly.
+                    <span class="title-text-ly">Uncle</span>Park.
                 </h1>
                 <p class="content has-text-grey is-size-6">
                     Connect with your Friends and <br />Create memories

@@ -5,14 +5,13 @@ const Navbar = () => {
   const onHamburgerClick = () => {
     const navHamburger = document.getElementById("navHamburger");
     const navMenu = document.getElementById(navHamburger.dataset.target);
-    
+
     navHamburger.classList.toggle("is-active");
     navMenu.classList.toggle("is-active");
   }
 
   return (
-    <div>
-      <div className="container">
+    <div className="container">
       <nav className="navbar has-shadow is-white" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item" href="/">
@@ -20,6 +19,7 @@ const Navbar = () => {
           </a>
 
           <a
+            href
             role="button"
             id="navHamburger"
             className="navbar-burger"
@@ -36,15 +36,14 @@ const Navbar = () => {
 
         <div id="navLinks" className="navbar-menu">
           <div id="navLinksEnd" className="navbar-end">
-            <a className="navbar-item"> Home </a>
-            <a className="navbar-item"> Add Spot </a>
+            <a href className="navbar-item"> Home </a>
+            <a href className="navbar-item"> Add Spot </a>
             <div className="navbar-item">
-              <a className="button is-light"> Log out </a>
+              <a className="button is-light" href> Log out </a>
             </div>
           </div>
         </div>
       </nav>
-    </div>
     </div>
   )
 }
