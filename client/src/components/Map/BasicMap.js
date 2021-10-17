@@ -105,7 +105,7 @@ const BasicMap = ({
       {showMySpot && (
         <Link to="/addslot" className={`${styles.addSlotBtn} button is-info`}>
           <FontAwesomeIcon icon={faPlus} />
-          Add Parking Slot
+          Add Parking Spot
         </Link>
       )}
       <DrawerWrapper open={open} setopen={setOpen} />
