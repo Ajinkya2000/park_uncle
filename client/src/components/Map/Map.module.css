@@ -59,3 +59,9 @@
 .d3 {
   background: #F83F37;
 }
+
+@media (max-width: 600px) {
+  .tooltip {
+    display: none;
+  }
+}
