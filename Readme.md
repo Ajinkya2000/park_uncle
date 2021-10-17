@@ -16,6 +16,7 @@ Other Benefits include: Source of Passive Income.
 - Developed with modern Libraries and Framework (React, Redux, Express and Node - MERN)
 - Successful integration of MapBox for Map View of different parking spots.
 - Email Confirmation after booking a spot.
+- Responsive Design
 
 ## Project Setup for development
 - Create a `.env` file in the root directory of both the client and the server and populate the variables:
