@@ -125,22 +125,3 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, { setUserMarker, getMarkerDetails })(
   BasicMap
 );
-
-// useEffect(() => {
-//   if (!map.current) return; // wait for map to initialize
-//   map.current.on("move", () => {
-//     setLng(map.current.getCenter().lng.toFixed(4));
-//     setLat(map.current.getCenter().lat.toFixed(4));
-//     setZoom(map.current.getZoom().toFixed(2));
-//   });
-// });
-
-// const [user, setUser] = useState({
-//   name: "Syam Prajapathi",
-//   number: "+91 9985180589",
-//   address: "G.B. Road, Mumbai, Tamiznadu, Sri Lanka",
-//   description: "so much space very large space badiya h bohot badhiya",
-//   cars: 2,
-//   bikes: 2,
-//   rate: "free",
-// });
