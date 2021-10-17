@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -21,6 +22,9 @@ import {
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 const SlotForm = ({ auth, addMarker }) => {
+  const [loading, setLoading] = useState(false);
+  const [successMessage, showSuccessMessage] = useState(false);
+
   const [userInfo, setUserInfo] = useState({
     name: auth.user.name || "",
     email: auth.user.email || "",
@@ -54,8 +58,12 @@ const SlotForm = ({ auth, addMarker }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    addMarker(userInfo);
+    addMarker(userInfo, () => {
+      setLoading(false);
+      showSuccessMessage(true);
+    });
   };
 
   return (
@@ -155,9 +163,17 @@ const SlotForm = ({ auth, addMarker }) => {
             </span>
           </div>
         </div>
-        <button className="button is-primary mt-4" type="submit">
+        <button
+          className={`button is-info mt-4 ${loading && "is-loading"}`}
+          type="submit"
+        >
           Submit
         </button>
+        {successMessage && (
+          <p className="mt-4 has-text-success">
+            Parking Location Added: <Link to="/">Check Out here</Link>{" "}
+          </p>
+        )}
       </form>
     </>
   );

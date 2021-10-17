@@ -62,16 +62,19 @@ const RegisterForm = ({ userSignup, auth }) => {
         <div className="field">
           <label className="label has-text-grey">Mobile number</label>
           <div className="control has-icons-left">
-            <input
-              className="input"
-              value={formData.phone}
-              type="tel"
-              placeholder="Enter mobile number"
-              pattern="[0-9]{10}"
-              onChange={handleChange}
-              name="phone"
-              required
-            />
+          <div className="input">
+              <p className="stdcode">{formData.phone ? '+91' : ''}</p>
+              <input
+                className="phone-input"
+                value={formData.phone}
+                type="tel"
+                placeholder="Enter 10 digit mobile number"
+                pattern="[0-9]{10}"
+                onChange={handleChange}
+                name="phone"
+                required
+              />
+            </div>
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faPhoneAlt} />
             </span>

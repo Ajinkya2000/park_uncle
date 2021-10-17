@@ -2,3 +2,14 @@
   background-color: #41d1af !important;
   color: white !important;
 }
+
+.stdcode {
+  font-size: .9rem;
+}
+
+.phone-input {
+  outline: none;
+  border: none;
+  width: 100%;
+  margin-left: 5px;
+}

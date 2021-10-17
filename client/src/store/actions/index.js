@@ -171,11 +171,11 @@ export const hideModal = () => (dispatch) => {
 };
 
 // add Marker
-export const addMarker = (markerData) => async (dispatch) => {
+export const addMarker = (markerData, callback) => async (dispatch) => {
   try {
-    const res = await unclePark.post('/marker', {markerData})
-    console.log(res);
+    await unclePark.post("/marker", { markerData });
+    callback();
   } catch (err) {
     console.log(err.message);
   }
-}
+};
