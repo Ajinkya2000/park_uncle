@@ -15,7 +15,7 @@ router.get("/marker", async (req, res) => {
 
 // Create a new Marker
 router.post("/marker", async (req, res) => {
-  const markerPin = new Marker(req.body);
+  const markerPin = new Marker(req.body.markerData);
 
   try {
     const savedPin = await markerPin.save();
@@ -37,6 +37,17 @@ router.patch("/book", async (req, res) => {
     );
 
     return res.status(200).json({ markerData: newMarkerData });
+  } catch (err) {
+    return res.status(500).json({error: err.message});
+  }
+});
+
+// Remove a Marker
+router.patch("/remove", async (req, res) => {
+  try {
+    await Marker.findOneAndRemove({_id: req.body._id});
+
+    return res.status(200).json({ msg: 'Marker Deleted'});
   } catch (err) {
     return res.status(500).json({error: err.message});
   }

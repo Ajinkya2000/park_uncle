@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 // Styles Import
@@ -41,9 +41,9 @@ const Navbar = ({ logoutUser, setShowMySpot }) => {
           aria-label="main navigation"
         >
           <div className="navbar-brand">
-            <a className="navbar-item" href="/">
-              <img src={logo} alt="logo" />
-            </a>
+            <Link className="navbar-item" to="/">
+              <img src={logo} alt="logo" className={styles.logoImg} />
+            </Link>
 
             <button
               id="navHamburger"

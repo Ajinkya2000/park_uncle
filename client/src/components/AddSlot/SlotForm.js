@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./AddSlot.css"
+
+import "./AddSlot.css";
+
+// Action Import
+import { addMarker } from "../../store/actions";
 
 // Icons
 import {
@@ -11,22 +16,20 @@ import {
   faClone,
   faRupeeSign,
   faPhoneAlt,
-  faCar,
-  faMotorcycle,
 } from "@fortawesome/free-solid-svg-icons";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const SlotForm = () => {
+const SlotForm = ({ auth, addMarker }) => {
   const [userInfo, setUserInfo] = useState({
-    name: "",
+    name: auth.user.name || "",
+    email: auth.user.email || "",
+    userId: auth.user._id || "",
     address: "",
     description: "",
-    numberOfCars: "",
-    numberOfBikes: "",
     longitude: "",
     latitude: "",
-    phone: "",
+    phone: auth.user.phone || "",
     rate: "",
   });
 
@@ -42,16 +45,22 @@ const SlotForm = () => {
         ...userInfo,
         address: e.result.place_name,
         longitude: e.result.center[0],
-        latitude: e.result.center[1]
-      })
+        latitude: e.result.center[1],
+      });
     });
-    
+
     // eslint-disable-next-line
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    addMarker(userInfo);
+  };
+
   return (
     <>
-      <form className="box">
+      <form className="box" onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Name</label>
           <div className="control has-icons-left has-icons-right">
@@ -70,6 +79,29 @@ const SlotForm = () => {
             />
             <span className="icon is-small is-left">
               <FontAwesomeIcon icon={faUser} />
+            </span>
+          </div>
+        </div>
+
+        <div className="field">
+          <label className="label">Mobile Number</label>
+          <div className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="tel"
+              placeholder="Enter your mobile number"
+              pattern="[0-9]{10}"
+              value={userInfo.phone}
+              onChange={(event) =>
+                setUserInfo({
+                  ...userInfo,
+                  phone: event.target.value,
+                })
+              }
+              required
+            />
+            <span className="icon is-small is-left">
+              <FontAwesomeIcon icon={faPhoneAlt} />
             </span>
           </div>
         </div>
@@ -102,75 +134,6 @@ const SlotForm = () => {
         </div>
 
         <div className="field">
-          <label className="label">Number of Cars</label>
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input"
-              type="number"
-              min="0"
-              placeholder="Enter the numer of cars"
-              value={userInfo.numberOfCars}
-              onChange={(event) =>
-                setUserInfo({
-                  ...userInfo,
-                  numberOfCars: event.target.value,
-                })
-              }
-              required
-              />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faCar} />
-            </span>
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Number of Bikes</label>
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input"
-              type="number"
-              min="0"
-              placeholder="Enter the numer of bikes"
-              value={userInfo.numberOfBikes}
-              onChange={(event) =>
-                setUserInfo({
-                  ...userInfo,
-                  numberOfBikes: event.target.value,
-                })
-              }
-              required
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faMotorcycle} />
-            </span>
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Mobile Number</label>
-          <div className="control has-icons-left has-icons-right">
-            <input
-              className="input"
-              type="tel"
-              placeholder="Enter your mobile number"
-              pattern="[0-9]{10}"
-              value={userInfo.phone}
-              onChange={(event) =>
-                setUserInfo({
-                  ...userInfo,
-                  phone: event.target.value,
-                })
-              }
-              required
-            />
-            <span className="icon is-small is-left">
-              <FontAwesomeIcon icon={faPhoneAlt} />
-            </span>
-          </div>
-        </div>
-
-        <div className="field">
           <label className="label">Price</label>
           <div className="control has-icons-left has-icons-right">
             <input
@@ -182,7 +145,7 @@ const SlotForm = () => {
               onChange={(event) =>
                 setUserInfo({
                   ...userInfo,
-                  rate: event.target.value,
+                  rate: parseInt(event.target.value),
                 })
               }
               required
@@ -192,15 +155,18 @@ const SlotForm = () => {
             </span>
           </div>
         </div>
-
-        <div className="field">
-          <button className="button is-primary" type="submit">
-            Submit
-          </button>
-        </div>
+        <button className="button is-primary mt-4" type="submit">
+          Submit
+        </button>
       </form>
     </>
   );
 };
 
-export default SlotForm;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.authReducer,
+  };
+};
+
+export default connect(mapStateToProps, { addMarker })(SlotForm);

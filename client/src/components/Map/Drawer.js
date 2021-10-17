@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import Drawer from "rsuite/Drawer";
 
 // Action Import
-import { bookSlot, showModal } from "../../store/actions";
+import { bookSlot, showModal, removeSlot } from "../../store/actions";
 
 const DrawerWrapper = ({
   auth,
   markerDetails,
   bookSlot,
+  removeSlot,
   showModal,
   ...props
 }) => {
@@ -26,6 +27,14 @@ const DrawerWrapper = ({
       props.setopen(false);
       setLoading(false);
       showModal();
+    });
+  };
+
+  const handleDelete = () => {
+    setLoading(true);
+    removeSlot(markerDetails, () => {
+      props.setopen(false);
+      setLoading(false);
     });
   };
 
@@ -56,17 +65,23 @@ const DrawerWrapper = ({
             <p className="subtitle is-4">{markerDetails.phone}</p>
             <p className="subtitle is-6">{markerDetails.address}</p>
             <p className="subtitle is-6">{markerDetails.description}</p>
-            <p className="subtitle is-6">Cars: {markerDetails.numberOfCars}</p>
-            <p className="subtitle is-6">
-              Bikes: {markerDetails.numberOfBikes}
-            </p>
             <p className="subtitle is-6">Price: {markerDetails.rate}&#8377;</p>
             {auth.user._id === markerDetails.userId ? (
-              <button className={"button is-danger"}>Remove Spot</button>
+              <button
+                onClick={handleDelete}
+                className={`button ${
+                  markerDetails.booked ? "is-light" : "is-danger"
+                } ${loading ? "is-loading" : ""}`}
+                disabled={markerDetails.booked}
+              >
+                Remove Spot
+              </button>
             ) : (
               <button
                 onClick={handleBooking}
-                className={`button is-primary ${loading ? "is-loading" : ""}`}
+                className={`button ${
+                  markerDetails.booked ? "is-danger" : "is-primary"
+                } ${loading ? "is-loading" : ""}`}
                 disabled={markerDetails.booked}
               >
                 Book Spot
@@ -86,4 +101,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { bookSlot, showModal })(DrawerWrapper);
+export default connect(mapStateToProps, { bookSlot, showModal, removeSlot })(
+  DrawerWrapper
+);

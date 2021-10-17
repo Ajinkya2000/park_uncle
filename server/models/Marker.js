@@ -38,14 +38,6 @@ const markerSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Rate is Required"],
     },
-    numberOfCars: {
-      type: Number,
-      default: 0,
-    },
-    numberOfBikes: {
-      type: Number,
-      default: 0,
-    },
     booked: {
       type: Boolean,
       default: false,

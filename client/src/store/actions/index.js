@@ -121,17 +121,37 @@ export const setShowMySpot = (showSpot) => (dispatch) => {
 };
 
 // Book Slot
-export const bookSlot = (markerData, details, user, modalOpen) => async (dispatch) => {
+export const bookSlot =
+  (markerData, details, user, modalOpen) => async (dispatch) => {
+    try {
+      await unclePark.patch("/book", markerData);
+      await unclePark.post("/send-mail", { details, user });
+      const { data } = await unclePark.get("/marker");
+      dispatch({
+        type: GET_MARKERS,
+        payload: data,
+      });
+
+      modalOpen();
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: err.response.data,
+      });
+    }
+  };
+
+// remove Slot
+export const removeSlot = (markerData, callback) => async (dispatch) => {
   try {
-    await unclePark.patch("/book", markerData);
-    await unclePark.post("/send-mail", {details, user});
+    await unclePark.patch("/remove", markerData);
     const { data } = await unclePark.get("/marker");
     dispatch({
       type: GET_MARKERS,
       payload: data,
     });
 
-    modalOpen();
+    callback();
   } catch (err) {
     dispatch({
       type: SET_ERROR,
@@ -149,3 +169,13 @@ export const showModal = () => (dispatch) => {
 export const hideModal = () => (dispatch) => {
   dispatch({ type: HIDE_MODAL });
 };
+
+// add Marker
+export const addMarker = (markerData) => async (dispatch) => {
+  try {
+    const res = await unclePark.post('/marker', {markerData})
+    console.log(res);
+  } catch (err) {
+    console.log(err.message);
+  }
+}

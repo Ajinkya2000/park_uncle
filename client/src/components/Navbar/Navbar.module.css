@@ -1,3 +1,7 @@
 .navWrap {
   background: transparent;
 }
+
+.logoImg {
+  max-height: 2.5rem !important;
+}

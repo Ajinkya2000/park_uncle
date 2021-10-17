@@ -3,7 +3,7 @@ import { SET_USER_MARKER } from "../../store/actions/types";
 const initialState = {
   currentLatitude: 0,
   currentLongitude: 0,
-  zoom: 9,
+  zoom: 6,
 };
 
 const mapReducer = (state = initialState, action) => {

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from "./Map.module.css";
 
@@ -103,8 +103,9 @@ const BasicMap = ({
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
       {showMySpot && (
-        <Link to="/addslot" className={styles.addSlotBtn}>
+        <Link to="/addslot" className={`${styles.addSlotBtn} button is-info`}>
           <FontAwesomeIcon icon={faPlus} />
+          Add Parking Slot
         </Link>
       )}
       <DrawerWrapper open={open} setopen={setOpen} />

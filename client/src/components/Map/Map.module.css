@@ -9,17 +9,17 @@
 }
 
 .addSlotBtn {
-  width: 50px;
-  height: 50px;
   position: absolute;
   bottom: 30px;
   right: 30px;
-  border-radius: 50%;
-  background-color: white;
   color: black;
-  font-size: 2rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 0px 50px 1px #000;
+  text-decoration: none !important;
+}
+
+.addSlotBtn svg {
+  margin-right: 10px;
 }
