@@ -11,7 +11,7 @@ Other Benefits include: Source of Passive Income.
 **What we made**: We created an application, where a user can find as well as add parking spots prefarable to their location.
 
 
-## Featues
+## Features
 - User Authentication using JWTs.
 - Developed with modern Libraries and Framework (React, Redux, Express and Node - MERN)
 - Successful integration of MapBox for Map View of different parking spots.
