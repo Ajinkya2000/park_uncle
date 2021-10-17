@@ -99,6 +99,7 @@ const BasicMap = ({
     // eslint-disable-next-line
   }, [location]);
 
+
   return (
     <div className={styles.mapWrapper}>
       <div ref={mapContainer} className={styles.mapContainer} />
@@ -108,6 +109,20 @@ const BasicMap = ({
           Add Parking Spot
         </Link>
       )}
+      <div className={`box ${styles.tooltip}`}>
+        <div>
+          <div className={styles.d1} />
+          <p>My Parking Spots</p>
+        </div>
+        <div>
+          <div className={styles.d2} />
+          <p>My Location</p>
+        </div>
+        <div>
+          <div className={styles.d3} />
+          <p>Available Parking Spots</p>
+        </div>
+      </div>
       <DrawerWrapper open={open} setopen={setOpen} />
     </div>
   );

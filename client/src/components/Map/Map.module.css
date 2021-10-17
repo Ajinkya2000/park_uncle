@@ -23,3 +23,39 @@
 .addSlotBtn svg {
   margin-right: 10px;
 }
+
+.tooltip {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.tooltip div {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.tooltip div div {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  /* box-shadow: 1px 1px 1px grey; */
+}
+
+.d1 {
+  background: #3A800D;
+}
+
+.d2 {
+  background: black;
+}
+
+.d3 {
+  background: #F83F37;
+}

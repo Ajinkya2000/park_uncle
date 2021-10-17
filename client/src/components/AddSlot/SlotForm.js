@@ -51,7 +51,7 @@ const SlotForm = ({ auth, addMarker }) => {
         longitude: e.result.center[0],
         latitude: e.result.center[1],
       });
-      geocoder.clear();
+      // geocoder.clear();
     });
 
     // eslint-disable-next-line
@@ -155,7 +155,7 @@ const SlotForm = ({ auth, addMarker }) => {
         </div>
 
         <div className="field">
-          <label className="label">Price</label>
+          <label className="label">Price (per hr)</label>
           <div className="control has-icons-left has-icons-right">
             <input
               className="input"
@@ -176,12 +176,20 @@ const SlotForm = ({ auth, addMarker }) => {
             </span>
           </div>
         </div>
-        <button
-          className={`button is-info mt-4 ${loading && "is-loading"}`}
-          type="submit"
-        >
-          Submit
-        </button>
+
+        <div className="buttons">
+          <button
+            className={`button is-info mt-4 ${loading && "is-loading"}`}
+            type="submit"
+          >
+            Submit
+          </button>
+
+          <Link className="button is-primary mt-4" to="/">
+            Go back
+          </Link>
+        </div>
+
         {successMessage && (
           <p className="mt-4 has-text-success">
             Parking Location Added: <Link to="/">Check Out here</Link>{" "}
