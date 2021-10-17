@@ -51,6 +51,7 @@ const SlotForm = ({ auth, addMarker }) => {
         longitude: e.result.center[0],
         latitude: e.result.center[1],
       });
+      geocoder.clear();
     });
 
     // eslint-disable-next-line
@@ -63,6 +64,18 @@ const SlotForm = ({ auth, addMarker }) => {
     addMarker(userInfo, () => {
       setLoading(false);
       showSuccessMessage(true);
+    });
+
+    setUserInfo({
+      name: "",
+      email: "",
+      userId: "",
+      address: "",
+      description: "",
+      longitude: "",
+      latitude: "",
+      phone: "",
+      rate: "",
     });
   };
 
